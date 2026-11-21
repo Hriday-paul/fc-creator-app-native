@@ -15,8 +15,8 @@ npm start
 ```
 app/                 # expo-router routes
   _layout.tsx        # fonts, splash, Redux + PersistGate, root Stack
-  index.tsx          # redirects to /user/home or /(auth)/wellcome
-  (auth)/            # wellcome, login, register, verify-otp, forgot-password, reset-password
+  index.tsx          # redirects to /user/home or /(auth)/welcome
+  (auth)/            # welcome, login, register, verify-otp, forgot-password, reset-password
   (common)/          # screens shared by every role (notification)
   user/(tabs)/       # bottom-tab screens for the USER role (home, profile)
 components/

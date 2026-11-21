@@ -13,6 +13,7 @@ const fontFamily = {
 
 /** Text sizes as [fontSize, lineHeight] in px. caption/label come from the Figma type styles. */
 const fontSize = {
+  micro: [10, 15],     // Inter SemiBold 10/15: "GOD IS ONE" divider, small eyebrows
   caption: [11, 16.5], // Inter/Regular 11/16.5: footer, terms, helper text
   label: [12, 16],     // Body/Bold/12: input labels, small buttons
   body: [14, 20],

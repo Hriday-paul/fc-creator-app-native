@@ -14,12 +14,12 @@ ThemeProvider → ReduxProvider (Provider + PersistGate) → SafeAreaProvider �
 
 Splash: the native splash (`app.json` → `assets/images/splash.png`, Android `splash-android.png`; regenerate both from `assets/source/logo-original.png`) stays up until `PersistGate` (`components/Shared/ReduxProvider.tsx`) has rehydrated the persisted `auth` slice — its `onBeforeLift` calls `SplashScreen.hide()`. Until then `SplashView` is rendered as a fallback, and every screen can trust `state.auth` on first render. Expo Go shows the app icon instead of the splash; check the real splash in a dev/release build.
 
-`app/index.tsx` redirects to `/user/home` if `auth.accessToken` exists, otherwise to `/(auth)/wellcome`.
+`app/index.tsx` redirects to `/user/home` if `auth.accessToken` exists, otherwise to `/(auth)/welcome`.
 
 ## Routing & guards
 
 - Route groups: `(auth)` (public stack), `(common)` (screens shared by all roles), `user/(tabs)` (bottom tabs for the `USER` role). The layout is organized by role (`Role = "USER" | "ADMIN"` in `redux/types.ts`); a future role gets its own `app/<role>/` folder.
-- `app/user/(tabs)/_layout.tsx` is the auth guard: no `accessToken` → `<Redirect href="/(auth)/wellcome" />`. Because it reads from Redux, a `logout()` dispatched anywhere (e.g. by a failed token refresh) kicks the user out automatically.
+- `app/user/(tabs)/_layout.tsx` is the auth guard: no `accessToken` → `<Redirect href="/(auth)/welcome" />`. Because it reads from Redux, a `logout()` dispatched anywhere (e.g. by a failed token refresh) kicks the user out automatically.
 - The tab bar is absolutely positioned, so tab screens must add bottom padding themselves.
 
 ## State & networking

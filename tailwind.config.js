@@ -48,6 +48,7 @@ module.exports = {
         muted: "#737378",
         subtle: "#5C6069",
         outline: "#BFBFBF",
+        line: "#E2E8F0", // light border on white outline buttons (Welcome)
       },
       borderRadius: {
         input: "12px",

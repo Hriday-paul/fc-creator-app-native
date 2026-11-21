@@ -20,4 +20,5 @@ export const colors = {
     muted: "#737378",         // Black Foundation/6 — secondary text
     subtle: "#5C6069",        // Shuttle Gray — captions, footer
     outline: "#BFBFBF",       // Accent/Outline — input and outline-button borders
+    line: "#E2E8F0",          // light border on white outline buttons (Welcome)
 };

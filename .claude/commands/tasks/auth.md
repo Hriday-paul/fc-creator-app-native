@@ -42,6 +42,7 @@ Colors live in `tailwind.config.js` (`theme.extend.colors`) and `utils/colors.ts
 | `muted` | `muted` | `#737378` | Black Foundation/6 | secondary text |
 | `subtle` | `subtle` | `#5C6069` | Shuttle Gray | captions, footer |
 | `outline` | `outline` | `#BFBFBF` | Accent/Outline | input & outline-button borders |
+| `line` | `line` | `#E2E8F0` | (Welcome btn border) | white outline-button border |
 
 Other tokens from the design:
 - Radius: inputs/buttons `12` (`rounded-input`), cards `16` (`rounded-card`).
@@ -53,6 +54,7 @@ Fonts live in `constants/fonts.js` (single source for Tailwind and `useFonts`) �
 | Class | Token | Current value |
 |---|---|---|
 | `font-app` / `-medium` / `-semibold` / `-bold` / `-extrabold` | `fontFamily.regular` … `.extrabold` | Inter 400 / 500 / 600 / 700 / 800 |
+| `text-micro` | `fontSize.micro` | 10 / 15 (Figma Inter/Semi Bold — "GOD IS ONE" divider) |
 | `text-caption` | `fontSize.caption` | 11 / 16.5 (Figma Inter/Regular — footer, terms) |
 | `text-label` | `fontSize.label` | 12 / 16 (Figma Body/Bold/12 — input labels) |
 | `text-body` / `text-button` | `fontSize.body` / `.button` | 14 / 20, 15 / 20 |
@@ -78,12 +80,12 @@ No passwords or OTP codes in the design: sign-in is Microsoft 365 or email/membe
 | S1 | Color tokens in `tailwind.config.js` + `utils/colors.ts`; `Button` and tab bar switched to them | `done` |
 | S2 | **Auth header** (screens 4–5): small FC logo + "Community Companion" left, language pill (globe + `EN`) right | `todo` |
 | S3 | **Footer line** "Community Member Platform · Secure 256-bit Member Privacy" (small `subtle` text) | `todo` |
-| S4 | **Terms line** "By continuing, you agree to our Terms of Service and Privacy Policy." (screens 2, 6, 7) | `todo` |
-| S5 | **Buttons**: primary (navy), outline (white, `outline` border), "Continue with Microsoft 365" (navy + MS logo). Extend `components/Shared/Button.tsx` | `todo` |
+| S4 | **Terms line** "By continuing, you agree to our Terms of Service and Privacy Policy." (screens 2, 6, 7) | `done` |
+| S5 | **Buttons**: primary (navy), outline (white, `outline` border), "Continue with Microsoft 365" (navy + MS logo). Extend `components/Shared/Button.tsx` | `done` (Button `icon` + `textClassName` props; MS button = primary + `assets/icons/microsoft.svg`) |
 | S6 | **Input** (label, red `*` when required, `rounded-input`, `outline` border) + **Select** variant with chevron | `todo` |
 | S7 | Font switched to Inter (matches Figma); Poppins package removed | `done` |
 | S9 | Font tokens in `constants/fonts.js` → Tailwind `font-app*` / `text-*` + `useFonts`; `font-poppins*` classes migrated | `done` |
-| S8 | Logos: FC crest already at `assets/images/logo.png` (reuse it, or `SplashView`'s pattern). Microsoft 4-square logo still needed — draw it with 4 coloured `View`s instead of a Figma call | `todo` |
+| S8 | Logos: FC crest already at `assets/images/logo.png` (reuse it, or `SplashView`'s pattern). Microsoft logo: Figma SVG at `assets/icons/microsoft.svg` (rendered with expo-image) | `done` |
 | S10 | App icon: replace the default Expo icon (`assets/images/icon.png`, `android-icon-*.png`, `favicon.png`) with the FC crest (from `assets/source/logo-original.png`). Expo Go shows this icon instead of the splash | `todo` |
 
 ## Screens
@@ -99,11 +101,11 @@ No passwords or OTP codes in the design: sign-in is Microsoft 365 or email/membe
 ### 2. Welcome — `37327:420` (same state: `37327:514`)
 | ID | Task | Status |
 |---|---|---|
-| 2.1 | Rebuild `app/(auth)/wellcome.tsx`: crest, "Welcome", subtitle "Your community, transportation, and services — all in one place.", gold divider "GOD IS ONE" | `todo` |
-| 2.2 | **Continue with Microsoft 365** → screen 3 | `todo` |
-| 2.3 | Outline row: **Email / Member ID** → screen 4, **Register Member** (person-plus icon) → screen 5 | `todo` |
-| 2.4 | Terms line; bottom "Don't Have An Account? **Sign Up**" → screen 5 | `todo` |
-| 2.5 | Rename route `wellcome` → `welcome` (update `_layout.tsx`, `app/index.tsx`) | `decision` |
+| 2.1 | Rebuild `app/(auth)/welcome.tsx`: crest, "Welcome", subtitle "Your community, transportation, and services — all in one place.", gold divider "GOD IS ONE" | `done` |
+| 2.2 | **Continue with Microsoft 365** → screen 3 | `in-progress` (button only, no action until screen 3) |
+| 2.3 | Outline row: **Email / Member ID** → screen 4, **Register Member** (person-plus icon) → screen 5 | `done` |
+| 2.4 | Terms line; bottom "Don't Have An Account? **Sign Up**" → screen 5 | `done` |
+| 2.5 | Rename route `wellcome` → `welcome` (update `_layout.tsx`, `app/index.tsx`) | `done` |
 
 ### 3. Microsoft 365 sign-in — `37327:654`
 | ID | Task | Status |

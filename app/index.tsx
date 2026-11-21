@@ -6,5 +6,5 @@ import { useSelector } from 'react-redux';
 export default function Index() {
   const accessToken = useSelector((state: RootState) => state.auth.accessToken);
 
-  return <Redirect href={accessToken ? '/user/home' : '/(auth)/wellcome'} />;
+  return <Redirect href={accessToken ? '/user/home' : '/(auth)/welcome'} />;
 }

@@ -22,7 +22,7 @@ export default function ProfileScreen() {
     const handleLogout = () => {
         dispatch(logout());
         // TODO(api): dispatch(baseApi.util.resetApiState());
-        router.replace('/(auth)/wellcome');
+        router.replace('/(auth)/welcome');
     };
 
     // TODO(api): restore loading / error states

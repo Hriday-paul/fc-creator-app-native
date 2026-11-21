@@ -28,7 +28,7 @@ export default function TabLayout() {
   const accessToken = useSelector((state: RootState) => state.auth.accessToken);
 
   // Guard: logged-out users (e.g. after a failed token refresh) go back to auth
-  if (!accessToken) return <Redirect href="/(auth)/wellcome" />;
+  if (!accessToken) return <Redirect href="/(auth)/welcome" />;
 
   return (
     <Tabs
