@@ -19,3 +19,6 @@ export const mockCredentials: IAuthResponse = {
     accessToken: 'mock-access-token',
     refreshToken: 'mock-refresh-token',
 };
+
+/** Mock member ID (Email / Member ID sign-in accepts this format: MEM-<digits>). */
+export const mockMemberId = 'MEM-68986';

@@ -15,9 +15,9 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 400, fade: true }); // fade-out is iOS only
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+ const colorScheme = useColorScheme();
 
+export default function RootLayout() {
   // Registered under the token names from constants/fonts.js
   const [loaded] = useFonts({
     [fontFamily.regular]: Inter_400Regular,

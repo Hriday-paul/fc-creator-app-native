@@ -1,75 +1,125 @@
-import Appbar from '@/components/Shared/Appbar';
+import FeatureCard from '@/components/Screens/Auth/Login/FeatureCard';
+import AuthFooter from '@/components/Shared/AuthFooter';
+import AuthHeader from '@/components/Shared/AuthHeader';
 import Button from '@/components/Shared/Button';
 import FormInput from '@/components/Shared/FormInput';
 // TODO(api): import { useLoginMutation } from '@/redux/apis/auth.api';
 import { setCredentials } from '@/redux/slices/auth.slice';
 // TODO(api): import { getErrorMessage } from '@/utils/errorMessage';
-import { mockCredentials } from '@/utils/mockData';
-import { Link, useRouter } from 'expo-router';
-import React from 'react';
+import { mockCredentials, mockMemberId } from '@/utils/mockData';
+import { useRouter } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 
-type FormValues = { email: string; password: string };
+type FormValues = { identifier: string };
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MEMBER_ID_RE = /^MEM-\d{3,}$/i;
+const DESIGN_HEIGHT = 852;
+
+// Email / Member ID sign-in (Figma Auth 37327:704). Designed at 393×852: 361 column (16 gutter),
+// header, then ~78px down the intro, feature card, field and buttons; footer pinned at the bottom.
 export default function LoginScreen() {
     const router = useRouter();
     const dispatch = useDispatch();
+    const { height } = useWindowDimensions();
     // TODO(api): const [login, { isLoading }] = useLoginMutation();
-    const { control, handleSubmit } = useForm<FormValues>();
+    const [loading, setLoading] = useState(false);
+    const { control, handleSubmit } = useForm<FormValues>({ defaultValues: { identifier: '' } });
 
-    const onSubmit = (values: FormValues) => {
+    // 78px below the header at the design height, never below 32 on short screens
+    const introGap = Math.round(Math.min(78, Math.max(32, (height / DESIGN_HEIGHT) * 78)));
+
+    const goBack = () => (router.canGoBack() ? router.back() : router.replace('/(auth)/welcome'));
+
+    const onSubmit = async ({ identifier }: FormValues) => {
+        const value = identifier.trim();
         // TODO(api): restore the login request
         // try {
-        //     const res = await login(values).unwrap();
+        //     const res = await login({ identifier: value }).unwrap();
         //     dispatch(setCredentials(res.data));
         //     router.replace('/user/home');
         // } catch (err) {
-        //     Alert.alert('Login failed', getErrorMessage(err));
+        //     Alert.alert('Sign-in failed', getErrorMessage(err));
         // }
-        dispatch(setCredentials({ ...mockCredentials, user: { ...mockCredentials.user, email: values.email } }));
+        setLoading(true);
+        await new Promise((r) => setTimeout(r, 600));
+        const email = EMAIL_RE.test(value) ? value : mockCredentials.user.email;
+        dispatch(setCredentials({ ...mockCredentials, user: { ...mockCredentials.user, email } }));
+        setLoading(false);
         router.replace('/user/home');
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-white">
+        <SafeAreaView className="flex-1 bg-background" edges={['top', 'bottom', 'left', 'right']}>
+            <StatusBar style="dark" />
             <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <ScrollView contentContainerClassName="px-6 pt-2 pb-10" keyboardShouldPersistTaps="handled">
-                    <Appbar title="Login" />
+                <ScrollView
+                    contentContainerClassName="flex-grow px-4"
+                    keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}
+                    bounces={false}
+                >
+                    <View className="w-full max-w-[480px] flex-1 self-center">
+                        <AuthHeader className="pt-4" />
 
-                    <Text className="text-2xl font-app-bold text-slate-900 mt-8">Welcome back</Text>
-                    <Text className="text-base font-app text-slate-500 mt-1 mb-8">Sign in to continue</Text>
+                        <View className="w-full gap-5" style={{ marginTop: introGap }}>
+                            {/* Intro */}
+                            <View className="w-full">
+                                <Text className="pt-1 font-app-semibold text-body uppercase text-muted">
+                                    Member Companion
+                                </Text>
+                                <Text
+                                    accessibilityRole="header"
+                                    className="pt-2 font-app-bold text-heading tracking-[-0.6px] text-ink"
+                                >
+                                    Welcome
+                                </Text>
+                                <Text className="pt-1 font-app text-micro leading-5 text-muted">
+                                    Your community, transportation, and services — all in one place.
+                                </Text>
+                            </View>
 
-                    <FormInput
-                        control={control}
-                        name="email"
-                        label="Email"
-                        placeholder="you@example.com"
-                        keyboardType="email-address"
-                        rules={{ required: 'Email is required' }}
-                    />
-                    <FormInput
-                        control={control}
-                        name="password"
-                        label="Password"
-                        placeholder="••••••••"
-                        secure
-                        rules={{ required: 'Password is required' }}
-                    />
+                            <FeatureCard />
 
-                    <Link href="/(auth)/forgot-password" className="self-end mb-6">
-                        <Text className="text-primary font-app-semibold">Forgot password?</Text>
-                    </Link>
+                            <View className="w-full">
+                                <FormInput
+                                    control={control}
+                                    name="identifier"
+                                    label="Email Address or Member ID"
+                                    placeholder={`you@example.com or ${mockMemberId}`}
+                                    keyboardType="email-address"
+                                    autoCorrect={false}
+                                    autoComplete="email"
+                                    returnKeyType="go"
+                                    onSubmitEditing={handleSubmit(onSubmit)}
+                                    rules={{
+                                        required: 'Enter your email or member ID',
+                                        validate: (v: string) =>
+                                            EMAIL_RE.test(v.trim()) ||
+                                            MEMBER_ID_RE.test(v.trim()) ||
+                                            `Enter a valid email or member ID (e.g. ${mockMemberId})`,
+                                    }}
+                                />
 
-                    <Button title="Login" onPress={handleSubmit(onSubmit)} />
+                                <View className="w-full flex-row gap-3">
+                                    <Button title="Back" variant="outline" className="px-4" onPress={goBack} />
+                                    <Button
+                                        title="Authenticate"
+                                        className="flex-1"
+                                        loading={loading}
+                                        onPress={handleSubmit(onSubmit)}
+                                    />
+                                </View>
+                            </View>
+                        </View>
 
-                    <View className="flex-row justify-center mt-6">
-                        <Text className="font-app text-slate-500">Don&apos;t have an account? </Text>
-                        <Link href="/(auth)/register" replace>
-                            <Text className="text-primary font-app-semibold">Sign up</Text>
-                        </Link>
+                        <View className="min-h-8 flex-1" />
+                        <AuthFooter className="pb-4" />
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

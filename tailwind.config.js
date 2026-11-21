@@ -44,11 +44,14 @@ module.exports = {
           950: "#020617",
           900: "#121316",
           800: "#1E293B",
+          700: "#334155", // input labels
+          500: "#64748B", // feature-card text
         },
         muted: "#737378",
         subtle: "#5C6069",
         outline: "#BFBFBF",
-        line: "#E2E8F0", // light border on white outline buttons (Welcome)
+        line: "#E2E8F0", // light border on white outline buttons and inputs
+        placeholder: "#94A3B8", // input placeholder
       },
       borderRadius: {
         input: "12px",

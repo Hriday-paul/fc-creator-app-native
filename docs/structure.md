@@ -8,7 +8,7 @@ app/                          # expo-router routes (file = screen)
   (common)/                   # screens shared by every role (notification)
   user/(tabs)/                # USER role bottom tabs (home, profile) + auth guard in _layout
 components/
-  Shared/                     # app-wide: Appbar, Button, FormInput, Error, ReduxProvider, SplashView, TermsLine
+  Shared/                     # app-wide: Appbar, AuthHeader, AuthFooter, Button, FormInput, Error, ReduxProvider, SplashView, TermsLine
   Screens/<Role>/<Screen>/    # components used by one screen, e.g. Screens/User/Home/HomeHeader.tsx
   ui/, themed-*.tsx, haptic-tab.tsx, external-link.tsx   # leftovers from the Expo template
 redux/

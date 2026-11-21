@@ -17,8 +17,11 @@ export const colors = {
     ink950: "#020617",        // blue/5
     ink900: "#121316",        // Woodsmoke
     ink800: "#1E293B",        // azure/17
+    ink700: "#334155",        // input labels
+    ink500: "#64748B",        // feature-card text
     muted: "#737378",         // Black Foundation/6 — secondary text
     subtle: "#5C6069",        // Shuttle Gray — captions, footer
     outline: "#BFBFBF",       // Accent/Outline — input and outline-button borders
-    line: "#E2E8F0",          // light border on white outline buttons (Welcome)
+    line: "#E2E8F0",          // light border on white outline buttons and inputs
+    placeholder: "#94A3B8",   // input placeholder
 };

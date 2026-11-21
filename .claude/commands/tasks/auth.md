@@ -42,7 +42,9 @@ Colors live in `tailwind.config.js` (`theme.extend.colors`) and `utils/colors.ts
 | `muted` | `muted` | `#737378` | Black Foundation/6 | secondary text |
 | `subtle` | `subtle` | `#5C6069` | Shuttle Gray | captions, footer |
 | `outline` | `outline` | `#BFBFBF` | Accent/Outline | input & outline-button borders |
-| `line` | `line` | `#E2E8F0` | (Welcome btn border) | white outline-button border |
+| `line` | `line` | `#E2E8F0` | (Welcome btn border) | white outline-button + input border |
+| `ink-700` / `ink-500` | `ink700` / `ink500` | `#334155` / `#64748B` | (slate) | input labels / feature-card text |
+| `placeholder` | `placeholder` | `#94A3B8` | (slate) | input placeholder |
 
 Other tokens from the design:
 - Radius: inputs/buttons `12` (`rounded-input`), cards `16` (`rounded-card`).
@@ -78,11 +80,11 @@ No passwords or OTP codes in the design: sign-in is Microsoft 365 or email/membe
 | ID | Task | Status |
 |---|---|---|
 | S1 | Color tokens in `tailwind.config.js` + `utils/colors.ts`; `Button` and tab bar switched to them | `done` |
-| S2 | **Auth header** (screens 4–5): small FC logo + "Community Companion" left, language pill (globe + `EN`) right | `todo` |
-| S3 | **Footer line** "Community Member Platform · Secure 256-bit Member Privacy" (small `subtle` text) | `todo` |
+| S2 | **Auth header** (screens 4–5): small FC logo + "Community Companion" left, language pill (globe + `EN`) right | `done` (`components/Shared/AuthHeader.tsx`; language pill display-only) |
+| S3 | **Footer line** "Community Member Platform · Secure 256-bit Member Privacy" (small `subtle` text) | `done` (`components/Shared/AuthFooter.tsx`) |
 | S4 | **Terms line** "By continuing, you agree to our Terms of Service and Privacy Policy." (screens 2, 6, 7) | `done` |
 | S5 | **Buttons**: primary (navy), outline (white, `outline` border), "Continue with Microsoft 365" (navy + MS logo). Extend `components/Shared/Button.tsx` | `done` (Button `icon` + `textClassName` props; MS button = primary + `assets/icons/microsoft.svg`) |
-| S6 | **Input** (label, red `*` when required, `rounded-input`, `outline` border) + **Select** variant with chevron | `todo` |
+| S6 | **Input** (label, red `*` when required, `rounded-input`, `outline` border) + **Select** variant with chevron | `in-progress` (`FormInput` restyled + `required` prop; Select variant todo) |
 | S7 | Font switched to Inter (matches Figma); Poppins package removed | `done` |
 | S9 | Font tokens in `constants/fonts.js` → Tailwind `font-app*` / `text-*` + `useFonts`; `font-poppins*` classes migrated | `done` |
 | S8 | Logos: FC crest already at `assets/images/logo.png` (reuse it, or `SplashView`'s pattern). Microsoft logo: Figma SVG at `assets/icons/microsoft.svg` (rendered with expo-image) | `done` |
@@ -116,10 +118,10 @@ No passwords or OTP codes in the design: sign-in is Microsoft 365 or email/membe
 ### 4. Email / Member ID sign-in — `37327:704`
 | ID | Task | Status |
 |---|---|---|
-| 4.1 | Rebuild `app/(auth)/login.tsx`: auth header, eyebrow "MEMBER COMPANION", "Welcome", subtitle | `todo` |
-| 4.2 | Feature card: bus icon "Real-time shuttle schedules & live tracking", shield icon "Personal certificate vault & member documents" | `todo` |
-| 4.3 | Field "Email Address or Member ID" (placeholder `you@example.com or MEM-68986`), validate email **or** member ID | `todo` |
-| 4.4 | **Back** (outline) + **Authenticate** (primary) → mock login → `/user/home`; footer line | `todo` |
+| 4.1 | Rebuild `app/(auth)/login.tsx`: auth header, eyebrow "MEMBER COMPANION", "Welcome", subtitle | `done` |
+| 4.2 | Feature card: bus icon "Real-time shuttle schedules & live tracking", shield icon "Personal certificate vault & member documents" | `done` |
+| 4.3 | Field "Email Address or Member ID" (placeholder `you@example.com or MEM-68986`), validate email **or** member ID | `done` |
+| 4.4 | **Back** (outline) + **Authenticate** (primary) → mock login → `/user/home`; footer line | `done` |
 
 ### 5. Email-Based Member Registration — `37327:577`
 | ID | Task | Status |
