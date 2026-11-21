@@ -1,0 +1,19 @@
+{
+  "enabledPlugins": {
+    "expo@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Read(./**)",
+      "Edit(./**)",
+      "Bash(npm run lint)",
+      "Bash(npm run lint:*)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(npx expo install:*)"
+    ],
+    "deny": [
+      "Edit(./node_modules/**)",
+      "Edit(./.expo/**)"
+    ]
+  }
+}
